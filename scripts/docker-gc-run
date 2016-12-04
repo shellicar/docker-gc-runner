@@ -1,0 +1,3 @@
+#!/bin/sh
+PATH=${PATH}:/usr/local/bin
+/usr/sbin/docker-gc
