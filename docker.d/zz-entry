@@ -1,3 +1,4 @@
 
 ENTRYPOINT ["/init"]
+CMD ["/usr/sbin/crond", "-f"]
 

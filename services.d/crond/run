@@ -1,2 +1,0 @@
-#!/usr/bin/execlineb -P
-crond -f -L /proc/self/fd/1

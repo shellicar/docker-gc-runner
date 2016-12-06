@@ -22,8 +22,8 @@ RUN apk add --no-cache openssl curl bash \
 &&  chmod +x /usr/sbin/docker-gc \
 &&  chown root:root /usr/sbin/docker-gc
 
-ADD scripts/docker-gc-run /etc/periodic/hourly/
-RUN chmod +x /etc/periodic/hourly/docker-gc-run
+ADD scripts/docker-gc-run /etc/periodic/15min/
+RUN chmod +x /etc/periodic/15min/docker-gc-run
 
 RUN rm -rf /tmp/*
 
@@ -35,4 +35,5 @@ RUN apk del -r curl openssl \
 &&  rm -rf /var/cache/apk/*
 
 ENTRYPOINT ["/init"]
+CMD ["/usr/sbin/crond", "-f"]
 

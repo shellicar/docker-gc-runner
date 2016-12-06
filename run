@@ -19,11 +19,7 @@ run(){
 	-it \
 	-d \
 	--name ${NAME} \
-	--privileged \
-	-v dind:/var/lib/docker \
-	-v inside-home:/home \
-	-v inside-var:/var \
-	-v inside-etc:/etc \
+    -v /var/run/docker.sock:/var/run/docker.sock \
 	${TAG}
 }
 
