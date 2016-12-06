@@ -1,0 +1,4 @@
+#!/bin/sh
+. env
+#docker exec -it ${NAME} su - root -s /bin/bash
+docker exec -it ${NAME} login -f root

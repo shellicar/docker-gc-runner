@@ -1,0 +1,35 @@
+#!/bin/sh
+
+stop(){
+state=`docker inspect --format {{.State.Running}} "${NAME}" 2>/dev/null`
+	if [ "$state" == "true" ]; then
+		printf "Stop: "
+		docker stop "${NAME}"
+		printf "Remove: "
+		docker rm "${NAME}"
+	elif [ "$state" == "false" ]; then
+		printf "Stop: "
+		docker rm "${NAME}";
+	fi
+}
+
+run(){
+	printf "Run: " && \
+	docker run -h ${NAME} \
+	-it \
+	-d \
+	--name ${NAME} \
+	--privileged \
+	-v dind:/var/lib/docker \
+	-v inside-home:/home \
+	-v inside-var:/var \
+	-v inside-etc:/etc \
+	${TAG}
+}
+
+
+. env && \
+./build && \
+stop && \
+run
+

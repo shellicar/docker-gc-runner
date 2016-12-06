@@ -1,0 +1,3 @@
+RUN apk del -r curl openssl \
+&&  rm -rf /tmp/* \
+&&  rm -rf /var/cache/apk/*
