@@ -9,8 +9,4 @@ RUN apk add --no-cache openssl curl bash \
 &&  chmod +x /usr/sbin/docker-gc \
 &&  chown root:root /usr/sbin/docker-gc
 
-# run docker-gc hourly
-ADD scripts/docker-gc-run /etc/periodic/hourly/
-RUN chmod +x /etc/periodic/hourly/docker-gc-run
-
 

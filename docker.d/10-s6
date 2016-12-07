@@ -3,8 +3,7 @@ ENV S6_VERSION v1.18.1.5
 ENV S6_URL https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-amd64.tar.gz
 
 # download & extract to root
-RUN apk add --no-cache --virtual .deps curl openssl \
-&&  curl -sSL ${S6_URL} | tar -C / -xzf - \
-&&  apk del -r .deps
+RUN apk add --no-cache curl openssl \
+&&  curl -sSL ${S6_URL} | tar -C / -xzf -
 
 

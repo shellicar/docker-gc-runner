@@ -1,18 +1,17 @@
 FROM alpine:3.4
+# australian timezone
+RUN apk add tzdata --no-cache \
+&&  cp /usr/share/zoneinfo/Australia/Melbourne /etc/localtime \
+&&  apk del -r tzdata
+
 # s6-overlay
 ENV S6_VERSION v1.18.1.5
 ENV S6_URL https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-amd64.tar.gz
 
 # download & extract to root
-RUN apk add --no-cache --virtual .deps curl openssl \
-&&  curl -sSL ${S6_URL} | tar -C / -xzf - \
-&&  apk del -r .deps
+RUN apk add --no-cache curl openssl \
+&&  curl -sSL ${S6_URL} | tar -C / -xzf -
 
-
-# australian timezone
-RUN apk add tzdata --no-cache \
-&&  cp /usr/share/zoneinfo/Australia/Melbourne /etc/localtime \
-&&  apk del -r tzdata
 
 WORKDIR /tmp
 RUN apk add --no-cache openssl curl bash \
@@ -25,15 +24,17 @@ RUN apk add --no-cache openssl curl bash \
 &&  chmod +x /usr/sbin/docker-gc \
 &&  chown root:root /usr/sbin/docker-gc
 
-# run docker-gc hourly
-ADD scripts/docker-gc-run /etc/periodic/hourly/
-RUN chmod +x /etc/periodic/hourly/docker-gc-run
-
 
 # remove unused packages & data
 RUN apk del -r curl openssl \
 &&  rm -rf /tmp/* \
 &&  rm -rf /var/cache/apk/*
+
+
+
+# run docker-gc hourly
+ADD scripts/docker-gc-run /etc/periodic/hourly/
+RUN chmod +x /etc/periodic/hourly/docker-gc-run
 
 
 # s6-overlay entry
