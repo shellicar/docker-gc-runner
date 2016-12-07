@@ -17,6 +17,7 @@ run(){
 	printf "Run: " && \
 	docker run -h ${NAME} \
 	-it \
+    --net none \
 	-d \
 	--name ${NAME} \
     -v /var/run/docker.sock:/var/run/docker.sock \

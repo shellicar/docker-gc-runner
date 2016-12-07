@@ -1,6 +1,0 @@
-
-# run docker-gc hourly
-ADD scripts/docker-gc-run /etc/periodic/hourly/
-RUN chmod +x /etc/periodic/hourly/docker-gc-run
-
-

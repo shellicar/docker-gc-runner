@@ -1,6 +1,6 @@
 # s6-overlay entry
 ENTRYPOINT ["/init"]
 # simple crond start
-CMD ["/usr/sbin/crond", "-f"]
+CMD []
 
 

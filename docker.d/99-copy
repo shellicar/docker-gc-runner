@@ -1,0 +1,9 @@
+
+# run docker-gc hourly
+ADD include/docker-gc-run /etc/periodic/hourly/
+# start crond
+ADD include/run_crond /etc/services.d/crond/run
+
+RUN chmod +x /etc/periodic/hourly/docker-gc-run
+
+
