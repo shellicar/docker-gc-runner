@@ -1,5 +1,5 @@
 # remove unused packages & data
-RUN apk del -r curl openssl \
+RUN apk del curl openssl \
 &&  rm -rf /tmp/* \
 &&  rm -rf /var/cache/apk/*
 

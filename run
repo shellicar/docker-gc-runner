@@ -14,14 +14,20 @@ state=`docker inspect --format {{.State.Running}} "${NAME}" 2>/dev/null`
 }
 
 run(){
-	printf "Run: " && \
-	docker run -h ${NAME} \
-	-it \
-    --net none \
-	-d \
-	--name ${NAME} \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-	${TAG}
+
+RUN_CMD="docker run -h ${NAME} \
+-it \
+--net none \
+-d \
+--name ${NAME} \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v /etc/docker-gc-exclude:/etc/docker-gc-exclude \
+${CONTAINER_RUN_OPTS} \
+${TAG}"
+
+    echo "Command: ${RUN_CMD}"
+    printf "Run: "
+    eval "${RUN_CMD}"
 }
 
 

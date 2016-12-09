@@ -1,2 +1,5 @@
 TAG=shellicar/docker-gc-runner
 NAME=docker-gc-runner
+
+CONTAINER_RUN_OPTS="--restart=unless-stopped"
+

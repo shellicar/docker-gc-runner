@@ -13,20 +13,21 @@ RUN apk add --no-cache curl openssl \
 &&  curl -sSL ${S6_URL} | tar -C / -xzf -
 
 
+ENV DOCKER_VERSION 1.12.3
+
 WORKDIR /tmp
 RUN apk add --no-cache openssl curl bash \
-&&  curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-1.6.2.tgz \
-&&  tar zxf docker-1.6.2.tgz \
+&&  echo "VERSION=${DOCKER_VERSION}" \
+&&  curl -L https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VERSION}.tgz | tar zxf - \
 &&  mkdir -p /usr/local/bin/ \
-&&  mv $(find -name 'docker') /usr/local/bin/ \
+&&  mv "$(find -type f -name 'docker')" /usr/local/bin/ \
 &&  chmod +x /usr/local/bin/docker \
 &&  wget https://raw.githubusercontent.com/spotify/docker-gc/master/docker-gc -O /usr/sbin/docker-gc \
 &&  chmod +x /usr/sbin/docker-gc \
 &&  chown root:root /usr/sbin/docker-gc
 
-
 # remove unused packages & data
-RUN apk del -r curl openssl \
+RUN apk del curl openssl \
 &&  rm -rf /tmp/* \
 &&  rm -rf /var/cache/apk/*
 
