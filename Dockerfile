@@ -39,8 +39,6 @@ ADD include/docker-gc-run /etc/periodic/hourly/
 ADD include/run_crond /etc/services.d/crond/run
 
 RUN chmod +x /etc/periodic/hourly/docker-gc-run
-
-
 # s6-overlay entry
 ENTRYPOINT ["/init"]
 # simple crond start
