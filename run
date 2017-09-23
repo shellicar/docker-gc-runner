@@ -21,7 +21,8 @@ RUN_CMD="docker run -h ${NAME} \
 -d \
 --name ${NAME} \
 -v /var/run/docker.sock:/var/run/docker.sock \
--v /etc/docker-gc-exclude:/etc/docker-gc-exclude \
+-v /etc/docker-gc-exclude:/etc/docker-gc-exclude:ro \
+-v /etc/docker-gc-exclude-containers:/etc/docker-gc-exclude-containers:ro \
 ${CONTAINER_RUN_OPTS} \
 ${TAG}"
 
@@ -31,7 +32,7 @@ ${TAG}"
 }
 
 
-. env && \
+. ./env && \
 ./build && \
 stop && \
 run

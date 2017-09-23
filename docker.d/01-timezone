@@ -1,5 +1,5 @@
 # australian timezone
 RUN apk add tzdata --no-cache \
-&&  cp /usr/share/zoneinfo/Australia/Melbourne /etc/localtime \
+&&  cp /usr/share/zoneinfo/Australia/Hobart /etc/localtime \
 &&  apk del -r tzdata
 

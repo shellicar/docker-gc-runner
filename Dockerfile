@@ -1,7 +1,7 @@
-FROM alpine:3.4
+FROM alpine:latest
 # australian timezone
 RUN apk add tzdata --no-cache \
-&&  cp /usr/share/zoneinfo/Australia/Melbourne /etc/localtime \
+&&  cp /usr/share/zoneinfo/Australia/Hobart /etc/localtime \
 &&  apk del -r tzdata
 
 # s6-overlay
@@ -13,12 +13,14 @@ RUN apk add --no-cache curl openssl \
 &&  curl -sSL ${S6_URL} | tar -C / -xzf -
 
 
-ENV DOCKER_VERSION 1.12.3
+ENV DOCKER_VERSION 17.06.2-ce
+ENV DOCKER_DOWNLOAD_URL "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz"
+
+RUN echo ${DOCKER_DOWNLOAD_URL} > /dev/stderr
 
 WORKDIR /tmp
 RUN apk add --no-cache openssl curl bash \
-&&  echo "VERSION=${DOCKER_VERSION}" \
-&&  curl -L https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VERSION}.tgz | tar zxf - \
+&&  curl -L ${DOCKER_DOWNLOAD_URL} | tar zxf - \
 &&  mkdir -p /usr/local/bin/ \
 &&  mv "$(find -type f -name 'docker')" /usr/local/bin/ \
 &&  chmod +x /usr/local/bin/docker \
@@ -39,8 +41,6 @@ ADD include/docker-gc-run /etc/periodic/hourly/
 ADD include/run_crond /etc/services.d/crond/run
 
 RUN chmod +x /etc/periodic/hourly/docker-gc-run
-
-
 # s6-overlay entry
 ENTRYPOINT ["/init"]
 # simple crond start

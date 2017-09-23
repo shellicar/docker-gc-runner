@@ -1,3 +1,4 @@
 #!/bin/sh
 PATH=${PATH}:/usr/local/bin
+GRACE_PERIOD_SECONDS=86400
 /usr/sbin/docker-gc
