@@ -2,12 +2,13 @@
 
 stop(){
 state=`docker inspect --format {{.State.Running}} "${NAME}" 2>/dev/null`
-	if [ "$state" == "true" ]; then
+    echo "state=$state"
+	if [ "$state" = "true" ]; then
 		printf "Stop: "
 		docker stop "${NAME}"
 		printf "Remove: "
 		docker rm "${NAME}"
-	elif [ "$state" == "false" ]; then
+	elif [ "$state" = "false" ]; then
 		printf "Stop: "
 		docker rm "${NAME}";
 	fi

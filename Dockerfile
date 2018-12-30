@@ -27,12 +27,11 @@ RUN apk add --no-cache openssl curl bash \
 &&  chmod +x /usr/local/bin/docker \
 &&  wget ${DOCKER_GC_URL} -O /usr/sbin/docker-gc \
 &&  chmod +x /usr/sbin/docker-gc \
-&&  chown root:root /usr/sbin/docker-gc
-
-# remove unused packages & data
-RUN apk del curl openssl \
+&&  chown root:root /usr/sbin/docker-gc \
 &&  rm -rf /tmp/* \
-&&  rm -rf /var/cache/apk/*
+&&  rm -rf /var/cache/apk/* \
+&&  apk del curl openssl
+# remove unused packages & data
 
 
 
