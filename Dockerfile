@@ -15,7 +15,7 @@ RUN apk add --no-cache curl openssl \
 
 ENV DOCKER_VERSION 17.06.2-ce
 ENV DOCKER_DOWNLOAD_URL "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz"
-ENV DOCKER_GC_URL=https://raw.githubusercontent.com/spotify/docker-gc/bb9580df7205da8498f41a5be05aeaeeff012f54/docker-gc
+ENV DOCKER_GC_URL=https://raw.githubusercontent.com/spotify/docker-gc/7ce3b44ae604d3515c75076316f12c56be1db1d2/docker-gc
 
 RUN echo ${DOCKER_DOWNLOAD_URL} > /dev/stderr
 
